@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+  background-color: black;
+  color: white;
+}
+@layer base {
+  .font-outline-2 {
+    -webkit-text-stroke: 1.5px white;
+  }
+  .font-outline-4 {
+    -webkit-text-stroke: 4px black;
+  }
+  .remove-arrow::-webkit-inner-spin-button,
+.remove-arrow::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+}
+
+

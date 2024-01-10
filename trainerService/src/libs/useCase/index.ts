@@ -1,0 +1,2 @@
+import { getAllTrainers_useCase,addTrainer_useCase ,getTrainerByEmail_useCase,trainerLogin_useCase,googleLogin_useCase,verifyOtp_useCase} from "./trainer/index";
+export{getAllTrainers_useCase,addTrainer_useCase,getTrainerByEmail_useCase,trainerLogin_useCase,googleLogin_useCase,verifyOtp_useCase}
