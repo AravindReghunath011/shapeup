@@ -1,23 +1,28 @@
+import { trainerData } from "../../entities"
+
 export const verifyOtp_useCase = (dependencies:any) =>{
     try{
         const {repository:{trainerRepository}}  = dependencies
     if(!trainerRepository) throw new Error('repo error in getEmail')
-    const executeFunction = async(email:string,otp:string)=>{
-        console.log(email,otp,'from otp usecase')
-        const {getTrainerByEmail,updateOtp} = trainerRepository
-        const trainer = await getTrainerByEmail(email)
-        if(trainer.otp==otp){
-            setTimeout(async function() {
-                
-                await updateOtp(email,0)
-            }, 2 * 60 * 1000);
-            return true
+    const executeFunction = async(trainerData:trainerData)=>{
+        const data = {
+            name:trainerData.name,
+            email:trainerData.email,
+            password:trainerData.password,
+            followers:0,
+            posts:0,
+            videos:0,
+            profile:null,
+            isBlocked:false
         }
-        return false
+        let newTrainer = trainerRepository.createTrainer(data)
+        console.log(newTrainer,'newTrainer usecase')
+        return newTrainer
     
     }
     return {executeFunction}
 }catch(err:any){
+    throw new Error(err.message)
         console.log(err)
     } 
     

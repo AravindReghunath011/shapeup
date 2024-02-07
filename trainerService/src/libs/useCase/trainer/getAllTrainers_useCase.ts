@@ -3,8 +3,10 @@ export const getAllTrainers_useCase = (dependencies:any)=>{
     if(!trainerRepository) throw new Error('repo error')
     
     const executeFunction = async()=>{
+        console.log('get trainers usecase')
         const trainerData = await trainerRepository.getAllTrainers()
-        return {trainerData}
+        console.log(trainerData,'from usecase')
+        return trainerData
     }
     return {executeFunction}
 }

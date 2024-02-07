@@ -43,6 +43,20 @@ spec:
   - host: shapeup.com
     http:
       paths:
+      - path: /api/user/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: user-srv
+            port:
+              number: 8000
+      - path: /api/trainer/?(.*)
+        pathType: Prefix
+        backend:
+          service:
+            name: user-srv
+            port:
+              number: 8001
       - path: /api/admin/?(.*)
         pathType: Prefix
         backend:

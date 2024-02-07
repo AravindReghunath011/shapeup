@@ -5,12 +5,12 @@ const trainerSchema = new mongoose.Schema({
     email:String,
     password:String || null,
     followers:Array || [],
-    posts:Array || [],
     videos:Array || [],
     profile:{
         type:String,
         default:null
     },
+    certificate:String,
     isBlocked:{
         type:Boolean,
         default:false
@@ -19,7 +19,7 @@ const trainerSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    otp:String || null
+    
 })
 
 const trainer = mongoose.model("trainer",trainerSchema)

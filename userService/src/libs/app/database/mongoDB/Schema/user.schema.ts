@@ -16,7 +16,8 @@ const userSchema = new mongoose.Schema({
     isVerified:{
         type:Boolean,
         default:false
-    }
+    },
+    subscription:Array || []
 })
 
 const user = mongoose.model("user",userSchema)

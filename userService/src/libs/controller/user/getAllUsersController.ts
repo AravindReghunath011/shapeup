@@ -6,8 +6,9 @@ export default (dependencies:any)=>{
         try {
             const userData = await getAllUsers_useCase(dependencies).executeFunction()
             if(!userData)res.json({status:false})
-            res.status(200).json(userData)
+            res.status(200).json({users:userData,message:'success'})
         } catch (error:any) {
+            console.log('Error in Get All Users Controller', error);
             res.json({message:error.message})
         }
     }

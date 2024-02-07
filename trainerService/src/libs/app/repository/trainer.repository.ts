@@ -1,6 +1,8 @@
 import mongoose,{ObjectId,Types} from 'mongoose'
 import {schemas} from '../database/mongoDB'
-const {trainer} = schemas;
+import { trainerProducer } from '../../../events/trainerProducer';
+import { subscriptionPlan } from '../../utils/interfaces/subscriptionPlan';
+const {trainer,subscription,subscriptionPlan} = schemas;
 
 export default {
     createTrainer: async(data:any)=>{
@@ -9,7 +11,7 @@ export default {
             email:data.email,
             password:data.password,
             followers:data.following,
-            posts:data.posts,
+            certificate:data.certificate,
             videos:data.videos,
             profile:data.profile,
             isBlocked:data.isBlocked
@@ -21,13 +23,33 @@ export default {
         return Trainers
     },
 
-    getAllTrainers: async()=>{
+    getAllTrainers: async(from:string)=>{
         let Trainers = await trainer.find({})
+        console.log(Trainers,'from getalltrainers')
+        if(from=='user'){
+
+            await trainerProducer(Trainers,'user','returnTrainers')
+        }
+        if(from=='admin'){
+
+            await trainerProducer(Trainers,'admin','returnTrainers')
+        }
+        return Trainers
+    },
+
+    getAllTrainersFromUser: async()=>{
+        let Trainers = await trainer.find({})
+        console.log(Trainers,'from getalltrainers')
+        await trainerProducer(Trainers,'returnTrainersToUser','returnTrainersToUser')
         return Trainers
     },
 
     getTrainerByEmail:async(email:string)=>{
         let Trainers = await trainer.findOne({email:email})
+        return Trainers
+    },
+    getTrainerById:async(id:string)=>{
+        let Trainers = await trainer.findOne({_id:id})
         return Trainers
     },
     updateOtp:async(email:string,otp:string)=>{
@@ -39,5 +61,42 @@ export default {
         }
         return false
     },
-    
+    newSubscription:async(data:any)=>{
+        console.log(data)
+        let newSub = await subscription.create(data)
+
+        return newSub
+    },
+    getSubscriptionPlan:async(trainerId:string)=>{
+        let plans = subscription.find({trainerId:trainerId})
+        return plans
+    },
+    newSubscriptionPlan:async(data:subscriptionPlan)=>{
+        const newPlan = await subscriptionPlan.create(data)
+        console.log(newPlan,"plan created")
+        return newPlan
+    },
+    followTrainer:async(trainerId:string,userId:string)=>{
+        const Trainer = trainer.findById(trainerId)
+        if(!Trainer){
+            throw new Error ('Invalid Trainer Id')
+        }else{
+            let updatedTrainer = await trainer.findByIdAndUpdate(trainerId,{$push:{followers:userId}},{new:true})
+            await trainerProducer({trainerId:trainerId,userId:userId},'user','newfollow')
+            console.log(updatedTrainer,'updated')
+            return updatedTrainer
+        }
+
+    },
+    unFollowTrainer:async(trainerId:string,userId:string)=>{
+        const triner = trainer.findById(trainerId)
+        if(!trainer){
+            throw new Error ('Invalid Trainer Id')
+        }else{
+            let updatedTrainer = trainer.findByIdAndUpdate(trainerId,{$pull:{followers:userId}})
+            await trainerProducer({trainerId:trainerId,userId:userId},'user','newfollow')
+            return updatedTrainer
+        }
+
+    },
 }

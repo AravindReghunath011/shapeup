@@ -1,11 +1,11 @@
 import {app} from './app'
 import { dbConnect } from './config/db'
+import {trainerConsumer} from './events/trainerConsumer'
 
 
 const start = async()=>{
     try {
         await dbConnect()
-        
     } catch (error) {
         console.log(error)
     }

@@ -1,2 +1,2 @@
-import { getAlladmins_useCase,addadmin_useCase ,getadminByEmail_useCase,adminLogin_useCase,googleLogin_useCase,verifyOtp_useCase} from "./admin/index";
-export{getAlladmins_useCase,addadmin_useCase,getadminByEmail_useCase,adminLogin_useCase,googleLogin_useCase,verifyOtp_useCase}
+import { getAllUsers_useCase,getTrainersRequest_useCase,acceptRequest_useCase,rejectRequest_useCase,getAllTrainers_useCase,addadmin_useCase ,getadminByEmail_useCase,adminLogin_useCase,googleLogin_useCase,verifyOtp_useCase} from "./admin/index";
+export{getAllUsers_useCase,getTrainersRequest_useCase,acceptRequest_useCase,rejectRequest_useCase,getAllTrainers_useCase,addadmin_useCase,getadminByEmail_useCase,adminLogin_useCase,googleLogin_useCase,verifyOtp_useCase}

@@ -1,5 +1,5 @@
 import { trainerRepository } from "../libs/app/repository/index";
-import { getAllTrainers_useCase,addTrainer_useCase,getTrainerByEmail_useCase,trainerLogin_useCase,verifyOtp_useCase ,googleLogin_useCase} from "../libs/useCase";
+import { getAllTrainers_useCase,acceptedRequest_useCase,followTrainer_useCase,unFollowTrainer_useCase,getTrainerById_useCase,getSubscriptionPlan_useCase,subscriptionPlan_useCase,subscription_useCase,addTrainer_useCase,getTrainerByEmail_useCase,trainerLogin_useCase,verifyOtp_useCase ,googleLogin_useCase} from "../libs/useCase";
 
 const useCase:any={
     getAllTrainers_useCase,
@@ -7,7 +7,15 @@ const useCase:any={
     getTrainerByEmail_useCase,
     trainerLogin_useCase,
     googleLogin_useCase,
-    verifyOtp_useCase
+    verifyOtp_useCase,
+    subscription_useCase,
+    subscriptionPlan_useCase,
+    getTrainerById_useCase,
+    getSubscriptionPlan_useCase,
+    unFollowTrainer_useCase,
+    followTrainer_useCase,
+    acceptedRequest_useCase,
+    
     
 }
 

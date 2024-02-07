@@ -8,9 +8,14 @@ export default  (dependencies:any)=>{
        try {
             console.log(req.body.user,'google user')
             let {executeFunction} = await googleLogin_useCase(dependencies)
-            let user = await executeFunction(req.body.user)
-            console.log(user,'after google user')
-            res.json({message:'success',user:user})
+            let {accessToken,User} = await executeFunction(req.body.user)
+            console.log(accessToken,'after google user')
+            let user = {
+                name:User.name,
+                email:User.email,
+                id:User._id
+            }
+            res.json({message:'success',accessToken:accessToken,user:user})
        } catch (error:any) {
         res.json({message:error.message})
        }

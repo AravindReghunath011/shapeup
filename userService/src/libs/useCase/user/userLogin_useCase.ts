@@ -16,10 +16,10 @@ export const userLogin_useCase = (dependencies:any) =>{
                 if(!passwordMatch){
                     throw new Error('Wrong password')
                 }else{
-                    let {name,email} = userExist
-                    let accessToken = createAccessToken(name,email)
+                    let {name,email,_id} = userExist
+                    let accessToken = createAccessToken(name,email,_id)
                     console.log(accessToken,'accesstoken')
-                    return userExist
+                    return {accessToken,userExist}
                 } 
             }else{
                 throw new Error('Wrong credentials')

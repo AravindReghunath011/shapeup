@@ -24,8 +24,8 @@ export const sendEmail = async(email:string)=>{
         html: `<h2> OTP for login </h2>
         <p>Your OTP for login in Shape UP is <strong>${otp}</strong></p>`, // html body
       })
-      console.log(info.messageId,'msgid')
-      return {otp:otp}
+      console.log(info.messageId,'msgid') 
+      return otp
 
       
 }

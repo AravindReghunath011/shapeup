@@ -1,6 +1,6 @@
 ---
 apiVersion: v1
-kind: ServiceAccount
+kind: Service
 metadata:
   name: demo-kafka
   namespace: "default"
@@ -10,8 +10,17 @@ metadata:
     app.kubernetes.io/instance: demo
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: kafka
-  annotations:
-automountServiceAccountToken: true
+spec:
+  type: LoadBalancer  # Specify LoadBalancer type
+  ports:
+    - name: tcp-client
+      port: 9092
+      protocol: TCP
+      targetPort: kafka-client
+  selector:
+    app.kubernetes.io/name: kafka
+    app.kubernetes.io/instance: demo
+    app.kubernetes.io/component: kafka
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -200,7 +209,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-              value: 
+              value: "zookeeper-service:2181"
             - name: KAFKA_INTER_BROKER_LISTENER_NAME
               value: "INTERNAL"
             - name: KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP

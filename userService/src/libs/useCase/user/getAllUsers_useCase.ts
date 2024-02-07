@@ -4,7 +4,7 @@ export const getAllUsers_useCase = (dependencies:any)=>{
     
     const executeFunction = async()=>{
         const userData = await userRepository.getAllUsers()
-        return {userData}
+        return userData
     }
     return {executeFunction}
 }

@@ -1,2 +1,2 @@
-import { getAllUsers_useCase,addUser_useCase ,getUserByEmail_useCase,userLogin_useCase,googleLogin_useCase} from "./user/index";
-export{getAllUsers_useCase,addUser_useCase,getUserByEmail_useCase,userLogin_useCase,googleLogin_useCase}
+import { getAllUsers_useCase,resendOtp_useCase,trainersList_useCase,addUser_useCase,verifyOtp_useCase ,getUserByEmail_useCase,userLogin_useCase,googleLogin_useCase} from "./user/index";
+export{getAllUsers_useCase,resendOtp_useCase,trainersList_useCase,addUser_useCase,verifyOtp_useCase,getUserByEmail_useCase,userLogin_useCase,googleLogin_useCase}

@@ -3,6 +3,9 @@ import addUserController from "./addUserController";
 import getUserByEmailController from "./getUserByEmailController";
 import loginController from "./loginController";
 import googleLoginController from "./googleLoginController";
+import otpVerifyController from "./otpVerifyController";
+import trainersListController from "./trainersListController";
+import resendOtpController from "./resendOtpController";
 
 export default (dependencies:any)=>{
     return {
@@ -10,6 +13,10 @@ export default (dependencies:any)=>{
         addUserController:addUserController(dependencies),
         getUserByEmailController:getUserByEmailController(dependencies),
         loginController:loginController(dependencies),
-        googleLoginController:googleLoginController(dependencies)
+        googleLoginController:googleLoginController(dependencies),
+        otpVerifyController:otpVerifyController(dependencies),
+        trainersListController:trainersListController(dependencies),
+        resendOtpController:resendOtpController(dependencies)
+
     }
 }
