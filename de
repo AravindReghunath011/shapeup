@@ -1,0 +1,32 @@
+- image: shapeup404/userservice
+    context: ./user-srv
+    sync:
+     manual:
+     - src: ./src/*/.ts
+       dest: .
+    docker:
+      dockerfile: Dockerfile
+  - image: shapeup404/adminservice
+    context: ./admin-srv
+    sync:
+     manual:
+     - src: ./src/*/.ts
+       dest: .
+    docker:
+      dockerfile: Dockerfile
+  - image: shapeup404/client
+    context: ./client-srv
+    sync:
+     manual:
+     - src: ./src/*/.tsx
+       dest: .
+    docker:
+      dockerfile: Dockerfile
+  - image: shapeup404/trainerservice
+    context: ./trainer-srv
+    sync:
+     manual:
+     - src: ./src/*/.ts
+       dest: .
+    docker:
+      dockerfile: Dockerfile

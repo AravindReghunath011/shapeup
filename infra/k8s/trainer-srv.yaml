@@ -13,8 +13,8 @@ spec:
         app: trainer
     spec:
       containers:
-      - name: trainer-container
-        image: aravindreghunath/trainerservice
+      - name: trainer
+        image: shapeup404/trainerservice
 ---
 apiVersion: v1
 kind: Service

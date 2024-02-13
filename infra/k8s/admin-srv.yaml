@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: admin-deployment
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: admin
@@ -13,9 +13,9 @@ spec:
         app: admin
     spec:
       containers:
-      - name: admin-container
-        image: aravindreghunath/adminservice
----
+      - name: admin
+        image: shapeup404/adminservice
+--- 
 apiVersion: v1
 kind: Service
 metadata:
