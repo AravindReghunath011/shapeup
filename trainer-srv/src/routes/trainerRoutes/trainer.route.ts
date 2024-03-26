@@ -36,6 +36,5 @@ export default (dependencies:any)=>{
     // router.post('/profileupdate',profileUpdateController)
     // router.get('/:email',getTrainerByEmailController)
 
-
     return router
 }
