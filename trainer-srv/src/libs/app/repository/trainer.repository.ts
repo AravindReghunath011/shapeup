@@ -2,7 +2,9 @@ import mongoose,{ObjectId,Types} from 'mongoose'
 import {schemas} from '../database/mongoDB'
 import { trainerProducer } from '../../../events/trainerProducer';
 import { subscriptionPlan } from '../../utils/interfaces/subscriptionPlan';
-const {trainer,subscription,subscriptionPlan} = schemas;
+import { videoData } from '../../utils/interfaces/videoData';
+import { dietData } from '../../utils/interfaces/dietData';
+const {trainer,subscription,subscriptionPlan,Videos,Diets} = schemas;
 
 export default {
     createTrainer: async(data:any)=>{
@@ -62,9 +64,26 @@ export default {
         return false
     },
     newSubscription:async(data:any)=>{
-        console.log(data)
-        let newSub = await subscription.create(data)
+        console.log(data,'kkkkkk')
+        let subExist = await subscription.find({userId:data.userId,trainerId:data.trainerId})
+        
+        let newSub
+        console.log(subExist,"existing")
+        if(subExist.length!==0){
+            console.log('iffff')
+            newSub = await  subscription.updateOne({userId:data.userId},{duration:data.duration})
+        }else{
 
+        console.log(data,'adaatatat')
+        let newSub = await subscription.create(data)
+        await trainer.findByIdAndUpdate(
+            data.trainerId,
+            { $addToSet: { subscribers: data.userId } },
+            { new: true }
+          );
+          
+        await trainerProducer(newSub,'user','newSubscription')
+        }
         return newSub
     },
     getSubscriptionPlan:async(trainerId:string)=>{
@@ -83,6 +102,7 @@ export default {
         }else{
             let updatedTrainer = await trainer.findByIdAndUpdate(trainerId,{$push:{followers:userId}},{new:true})
             await trainerProducer({trainerId:trainerId,userId:userId},'user','newfollow')
+            
             console.log(updatedTrainer,'updated')
             return updatedTrainer
         }
@@ -103,5 +123,70 @@ export default {
         const subscribers = await subscription.find({trainerId:trainerId})
         console.log(subscribers,'from repo')
         return subscribers
+    },
+    getSubscriptionList:async(userId:string)=>{
+        const subscriptionList = await trainer.find({ subscribers: { $in: [userId] } });
+        console.log(subscriptionList,'from repo')
+        return subscriptionList
+    },
+    search:async(value:string)=>{
+        const regexPattern = new RegExp('^' + value, 'i')
+        const trainers = await trainer.find({name:{$regex:regexPattern}})
+
+        console.log(trainer,'trainer')
+        return trainers
+    },
+    videoUpload:async(data:videoData)=>{
+        const video = await  Videos.create(data)
+        return video
+    },
+    dietUpload:async(data:dietData)=>{
+        const video = await  Diets.create(data)
+        return video
+    },
+    getVideos:async()=>{
+        const videos = await Videos.find({})
+        return videos
+    },
+    getVideoById:async(id:string)=>{
+        const video = await Videos.findById(id)
+        return video
+    },
+    getDietById:async(id:string)=>{
+        const diet = await Diets.findById(id)
+        return diet
+    },
+    getDiets:async()=>{
+        const diets = await Diets.find({})
+        return diets
+    },
+    blockTrainer:async(trainerId:string)=>{
+        const trainerData = await trainer.findById(trainerId)
+        if(!trainerData){
+
+            throw new Error('No trainer')
+        }else{
+            const trainerData = await trainer.findByIdAndUpdate(trainerId,{$set:{'isBlocked':true}},{new:true})
+            return trainerData
+        }
+    },
+    unBlockTrainer:async(trainerId:string)=>{
+        const trainerData = await trainer.findById(trainerId)
+        if(!trainerData){
+
+            throw new Error('No trainer')
+        }else{
+            const trainerData = await trainer.findByIdAndUpdate(trainerId,{$set:{'isBlocked':false}},{new:true})
+            console.log(trainerData,'unblcokkk')
+            return trainerData
+        }
+    },
+    getPurchasedSubscriptions:async(userId:string,trainerId:string)=>{
+        
+            let pruchasedSubscriptions = await subscription.findOne({userId:userId,trainerId:trainerId})
+            console.log(pruchasedSubscriptions,'subscrip from repos')
+            return  pruchasedSubscriptions;
+        
     }
+    
 }

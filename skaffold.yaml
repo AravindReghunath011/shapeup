@@ -6,7 +6,7 @@ deploy:
       - ./infra/k8s*
 build:
   local:
-    push: true
+    push: false
   artifacts:
     - image: shapeup404/adminservice
       context: admin-srv
@@ -14,6 +14,30 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: './src/**/*.ts'
+            dest: .
+    - image: shapeup404/trainerservice
+      context: trainer-srv
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: './src/**/*.ts'
+            dest: .
+    - image: shapeup404/userservice
+      context: user-srv
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: './src/**/*.ts'
+            dest: .
+    - image: shapeup404/client
+      context: client-srv
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: './src/**/*.tsx'
             dest: .
           

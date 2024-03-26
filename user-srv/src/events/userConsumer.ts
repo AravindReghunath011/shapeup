@@ -2,7 +2,7 @@
 import { userRepository } from "../libs/app/repository";
 import { kafka } from "../config/kafkaClient";
 import { handleMessage } from "./handleMessages";
-import { newFollow } from "../libs/utils/eventFunctions/newFollow";
+import { newFollow,newSubscription } from "../libs/utils/eventFunctions";
 // imposrt { handleMessage } from "../event/handleMessages.js";
 // import {orderProducer} from "../event/orderProducer.js"
 const consumer = kafka.consumer({
@@ -14,7 +14,7 @@ export const userConsumer = async (dependencies:any) => {
     let messageType
     try {
         await consumer.connect();
-        console.log('Consumer connected');
+        console.log('Consumer connected'); 
 
         await consumer.subscribe({ topic: 'user', fromBeginning: true });
         await consumer.run({
@@ -30,19 +30,12 @@ export const userConsumer = async (dependencies:any) => {
                  messageType = jsonData.type;
                 console.log("Received message type:", messageType);
 
-                if(messageType='newfollow'){
-                    let newfollow = await newFollow(dependencies,jsonData.data)
+                if(messageType=='newfollow'){
+                      await newFollow(dependencies,jsonData.data)
+                }else if(messageType == 'newSubscription'){
+                    console.log('entered newsub')
+                    await newSubscription(dependencies,jsonData.data)
                 }
-                
-                // Call handleMessage and wait for it to complete
-                // const response = await handleMessage(jsonData.data, messageType);
-
-                // console.log("response in handle message", response);
-
-                // Further processing or logging based on the response
-                // if (response) {
-                //     await orderProducer(response, 'product','successOrdered')
-                // }
                 
             }
         });

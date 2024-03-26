@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { DropdownMenu,DropdownMenuItem,DropdownMenuContent,DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
-import { axiosPrivet } from '@/utils/baseUrl'
+import { axiosPrivet } from '@/utils/axios/baseUrl'
 import { RequestInterface } from '@/utils/interface/requestInterface'
 import Sidebar from '@/components/ui/sidebar'
 import AdminNavbar from '@/components/admin/AdminNavbar'
+import { acceptRequestURL, getRequests, rejectRequestURL, trainerRequestsURL } from '@/utils/axios/apiUrls'
 
 const TrainersRequests = () => {
     const  [requests, setRequests] = useState<RequestInterface[]>()
@@ -13,21 +14,21 @@ const TrainersRequests = () => {
     },[])
 
     const fetchRequests = () => {
-        axiosPrivet.post('http://localhost:8002/api/admin/requests').then(({ data }: any) => {
+        axiosPrivet.post(getRequests).then(({ data }: any) => {
             console.log(data, 'data')
             setRequests(data.data)
         })
     }
 
     const acceptRequest = async(id:string)=>{
-        axiosPrivet.put(`http://localhost:8002/api/admin/accept`,{requestId:id}).then((response:any)=>{
+        axiosPrivet.put(acceptRequestURL,{requestId:id}).then((response:any)=>{
             console.log(response.data)
         })
          fetchRequests()
     }
     
     const rejectRequest = async(id:string)=>{
-        axiosPrivet.put(`http://localhost:8002/api/admin/reject`,{requestId:id}).then((response:any)=>{
+        axiosPrivet.put(rejectRequestURL,{requestId:id}).then((response:any)=>{
             console.log(response.data)
         })
     }
@@ -36,7 +37,7 @@ const TrainersRequests = () => {
     <>
        <AdminNavbar/>
     <div className='flex mt-20 '>
-        <Sidebar/>
+        <Sidebar select={'trainersRequests'}/>
         <div className="flex justify-center w-full pb-10 ">
         <table className='border border-input text-center mt-10 ml-10 '>
             <thead className='border border-input ' >
@@ -51,6 +52,7 @@ const TrainersRequests = () => {
             </thead>
             <tbody>
                 {
+                    requests?.length == 0 ? <div> No Requests</div> :
                     requests?.map((request:RequestInterface,i:number)=>{
                        return  <tr key={request._id}>
                     <td className='border border-input'>{i+1}</td>

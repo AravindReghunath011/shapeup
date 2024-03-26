@@ -45,5 +45,30 @@ export default {
         }else{
            return 'success'
         }
-    }
+    },
+    updateSubscriptionList: async (data: any) => {
+        console.log(data, 'data in subscription');
+        try {
+            let updateUser = await user.updateOne(
+                { _id: data.userId },
+                { $addToSet: { subscription: data.trainerId } },
+                { new: true }
+            );
+            console.log("Update data", updateUser);
+            if (!updateUser) {
+                throw new Error('Error in updating subscription list');
+            } else {
+                return 'success';
+            }
+        } catch (error) {
+            console.error('Error in updating subscription list:', error);
+            throw error;
+        }
+    },
+    
+    getSubscribersList:async(trainerId:string)=>{
+        const subscriptionList = await user.find({ subscription: { $in: [trainerId] } });
+        console.log(subscriptionList,'from repo')
+        return subscriptionList
+    },
 }

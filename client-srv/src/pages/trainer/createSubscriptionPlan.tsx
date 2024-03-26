@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import axios, { axiosPrivet } from '@/utils/baseUrl';
+import axios, { axiosPrivet } from '@/utils/axios/baseUrl';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+import { subscriptionPlan } from '@/utils/axios/apiUrls';
 
 const CreateSubscriptionPlan = () => {
   const trainer =  useSelector((state:any) => state.persisted.trainer.trainer)
@@ -25,7 +26,7 @@ const CreateSubscriptionPlan = () => {
     }
     try {
       const response = await axiosPrivet.post(
-        'http://localhost:8001/api/trainer/subscriptionPlan',
+        subscriptionPlan,
         submitData
       );
 

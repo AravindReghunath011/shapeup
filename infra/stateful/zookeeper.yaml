@@ -18,7 +18,6 @@ spec:
           image: wurstmeister/zookeeper
           ports:
             - containerPort: 2181
-
 ---
 # zookeeper-service.yaml
 apiVersion: v1

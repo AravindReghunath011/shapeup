@@ -13,17 +13,17 @@ spec:
         app: user
     spec:
       containers:
-      - name: user
+      - name: user-container
         image: shapeup404/userservice
 ---
 apiVersion: v1
 kind: Service
-metadata:
+metadata: 
   name: user-srv
 spec:
   selector:
     app: user
-  ports:
+  ports: 
     - name: user
       protocol: TCP
       port: 8000

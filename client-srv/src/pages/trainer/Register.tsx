@@ -4,6 +4,7 @@ import axios from 'axios'
 import {  toast } from 'sonner';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { trainerRegister } from '@/utils/axios/apiUrls';
 
 
 const Register = () => {
@@ -20,7 +21,7 @@ const Register = () => {
     formData.append('name', data.name);
     formData.append('email', data.email);
     formData.append('password', data.password);
-        axios.post('http://localhost:8001/api/trainer/register',formData,{withCredentials:true}).then((response:any)=>{
+        axios.post(trainerRegister,formData,{withCredentials:true}).then((response:any)=>{
             console.log(response.data)
             if(response.data.message=='success'){
                 toast.success('Otp is sent to the mail')

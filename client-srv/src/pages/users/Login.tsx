@@ -2,7 +2,7 @@ import  { useState } from 'react'
 import Navbar from '../../components/users/Navbar'
 import { GoogleOAuthProvider,GoogleLogin } from '@react-oauth/google';
 // import { googleLogout } from '@react-oauth/google';
-import axios from '../../utils/baseUrl'
+import axios from '../../utils/axios/baseUrl'
 import {Link} from 'react-router-dom'
 import {jwtDecode} from 'jwt-decode'
 import {  toast } from 'sonner';
@@ -12,10 +12,11 @@ import { useDispatch,useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
 import { setUser } from '@/redux/userSlice';
+import { userGoogleLoginURL, userLoginURL } from '@/utils/axios/apiUrls';
 
 
 
-const baseurl= 'http://localhost:8000/api/user'
+
 
 
 const page = () => {
@@ -28,7 +29,7 @@ const page = () => {
 
   const handleSubmit = ()=>{
     console.log(email,password,'body')
-    axios().post(`${baseurl}/login`, {
+    axios().post(userLoginURL, {
       email:email,
       password:password
     })
@@ -37,7 +38,8 @@ const page = () => {
         console.log(data)
         const {name,email,id} = data.user
         dispatch(setUser({name,email,id}))
-        Cookies.set('accessToken',data.accessToken,{path:'/',httpOnly:false})
+        //Cookies.set('accessToken',data.accessToken,{path:'/',httpOnly:false})
+        localStorage.setItem('accessToken' , data.accessToken);
         toast.success('Login success')
 
         setTimeout(() => {
@@ -80,7 +82,7 @@ const page = () => {
       
       let decoded = jwtDecode(credentialResponse.credential!)
       console.log(decoded)
-      axios().post(`${baseurl}/google`, {
+      axios().post(userGoogleLoginURL, {
         user:decoded
       })
       .then(function ({data}) {

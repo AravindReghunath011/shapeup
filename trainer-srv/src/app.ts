@@ -3,9 +3,8 @@ import { routes } from './routes'
 import dependencies from './config/dependencies'
 import session from 'express-session'
 import cors from 'cors'
-import dotenv from 'dotenv'
+
 import { trainerConsumer } from './events/trainerConsumer'
-dotenv.config()
 
 const app = express()
 
@@ -22,7 +21,7 @@ app.use(cors({
     origin:'http://localhost:5173',
     credentials:true
 }))
-         trainerConsumer(dependencies)
+        //  trainerConsumer(dependencies)
 
 app.use('/api',routes(dependencies))
 

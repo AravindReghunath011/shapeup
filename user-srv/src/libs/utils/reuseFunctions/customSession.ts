@@ -4,6 +4,7 @@ declare module 'express-session' {
     export interface SessionData {
        user: object;
        otp:string;
+       refreshToken:string;
     }
    }
 

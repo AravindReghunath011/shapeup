@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import  { axiosPrivet } from '../../utils/baseUrl';
+import  { axiosPrivet } from '../../utils/axios/baseUrl';
 import { toast } from 'sonner';
 import { useNavigate } from "react-router-dom";
+import { otpVerifyURL, resendOtpURL } from '@/utils/axios/apiUrls';
 
 interface OtpInputRef {
   current: HTMLInputElement | null;
@@ -44,7 +45,7 @@ const Otp: React.FC = () => {
       toast.error('Invalid OTP');
     } else {
       axiosPrivet.post<{ message: string }>(
-        `http://localhost:8001/api/trainer/verify`,
+        otpVerifyURL,
         { otp: otp.join('') },
         { withCredentials: true }
       ).then(({ data }) => {
@@ -62,7 +63,7 @@ const Otp: React.FC = () => {
   };
 
   const resendOtp = async () => {
-    axiosPrivet.post(`http://localhost:8001/api/trainer/resendotp`).then(({ data }) => {
+    axiosPrivet.post(resendOtpURL).then(({ data }) => {
       if (data.message === 'resendotp') {
         toast.success('OTP sent to your mail');
       } else {

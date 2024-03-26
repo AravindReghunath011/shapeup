@@ -2,6 +2,7 @@ export interface TrainerInterface{
     name:string,
     _id:string,
     followers:Object,
-    email:string
+    email:string,
+    subscribers:string
 
 }

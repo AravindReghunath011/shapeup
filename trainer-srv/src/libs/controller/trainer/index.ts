@@ -11,6 +11,17 @@ import getTrainerByIdController from "./getTrainerByIdController";
 import trainerFollowController from "./trainerFollowController";
 import trainerUnfollowController from "./trainerUnfollowController";
 import getSubscriberController from './getSubscribersList'
+import videoUploadController from "./videoUploadController";
+import getVideoController from "./getVideoController";
+import searchTrainerController from './searchTrainerController'
+import trainerBlockController from "./trainerBlockController";
+import trainerUnblockController from "./trainerUnblockController";
+import getSubscriptionListController from "./getSubscriptionListController"; 
+import dietUploadController from "./dietUploadController";
+import getDietsController from "./getDietsController";
+import getVideoByIdController from "./getVideoByIdController";
+import getDietByIdController from "./getDietByIdController";
+import getPurchasedSubscriptionsController from "./getPurchasedSubscriptionsController";
 
 export default (dependencies:any)=>{
     return {
@@ -27,6 +38,18 @@ export default (dependencies:any)=>{
         trainerUnfollowController:trainerUnfollowController(dependencies),
         trainerFollowController:trainerFollowController(dependencies),
         getSubscriberController:getSubscriberController(dependencies),
+        videoUploadController:videoUploadController(dependencies),
+        getVideoController:getVideoController(dependencies),
+        searchTrainerController:searchTrainerController(dependencies),
+        trainerBlockController:trainerBlockController(dependencies),
+        trainerUnblockController:trainerUnblockController(dependencies),
+        getSubscriptionListController:getSubscriptionListController(dependencies),
+        dietUploadController:dietUploadController(dependencies),
+        getDietsController:getDietsController(dependencies),
+        getVideoByIdController:getVideoByIdController(dependencies),
+        getDietByIdController:getDietByIdController(dependencies),
+        getPurchasedSubscriptionsController:getPurchasedSubscriptionsController(dependencies),
+        
 
         
 

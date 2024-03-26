@@ -10,6 +10,9 @@ export const trainerLogin_useCase = (dependencies:any) =>{
         if(!trainerExist){
             throw new Error('No User found')
         }else{
+            if(trainerExist.isBlocked){
+                throw new Error ('You are bloced by the admin')
+            }
             if(trainerExist.password){
 
                 let passwordMatch = await comparePassword(password,trainerExist.password)
@@ -17,6 +20,7 @@ export const trainerLogin_useCase = (dependencies:any) =>{
                     throw new Error('Wrong password')
                 }else{
                     let {name,email} = trainerExist
+                    
                     let accessToken = createAccessToken(name,email)
                     console.log(accessToken,'accesstoken')
                     return trainerExist

@@ -15,4 +15,4 @@ export const addTrainer_useCase = (dependencies:any)=>{
            }
     }
     return {executeFunction}
-}   
+}

@@ -1,4 +1,5 @@
 import { comparePassword,sendEmail,createAccessToken } from "../../utils/reuseFunctions"
+import { createRefreshToken } from "../../utils/reuseFunctions/createRefreshToken"
 
 export const userLogin_useCase = (dependencies:any) =>{
     try{
@@ -13,13 +14,15 @@ export const userLogin_useCase = (dependencies:any) =>{
             if(userExist.password){
 
                 let passwordMatch = await comparePassword(password,userExist.password)
+
                 if(!passwordMatch){
                     throw new Error('Wrong password')
                 }else{
                     let {name,email,_id} = userExist
                     let accessToken = createAccessToken(name,email,_id)
+                    let refreshToken = createRefreshToken(name,email,_id)
                     console.log(accessToken,'accesstoken')
-                    return {accessToken,userExist}
+                    return {accessToken,userExist,refreshToken}
                 } 
             }else{
                 throw new Error('Wrong credentials')

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from '../../utils/baseUrl';
+import axios from '../../utils/axios/baseUrl';
 import { toast } from 'sonner';
 import { useNavigate } from "react-router-dom";
+import { resendOtpURL, verifyOtpURL } from '@/utils/axios/apiUrls';
 
 interface OtpInputRef {
   current: HTMLInputElement | null;
@@ -43,8 +43,8 @@ const Otp: React.FC = () => {
     if (otp.join('').length !== 4) {
       toast.error('Invalid OTP');
     } else {
-      axios.post<{ message: string }>(
-        `http://localhost:8000/api/user/verify`,
+      axios().post<{ message: string }>(
+        verifyOtpURL,
         { otp: otp.join('') },
         { withCredentials: true }
       ).then(({ data }) => {
@@ -62,7 +62,7 @@ const Otp: React.FC = () => {
   };
 
   const resendOtp = async () => {
-    axios.post(`http://localhost:8000/api/user/resendotp`).then(({ data }) => {
+    axios().post(resendOtpURL).then(({ data }) => {
       if (data.message === 'resendotp') {
         toast.success('OTP sent to your mail');
       } else {

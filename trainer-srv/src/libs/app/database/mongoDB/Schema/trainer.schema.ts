@@ -10,6 +10,7 @@ const trainerSchema = new mongoose.Schema({
         type:String,
         default:null
     },
+    subscribers:Array || [],
     certificate:String,
     isBlocked:{
         type:Boolean,
@@ -19,6 +20,8 @@ const trainerSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+    headline:String || 'Hey welcome to my profile',
+    about:String || 'Start the fitness journey here!!'
     
 })
 

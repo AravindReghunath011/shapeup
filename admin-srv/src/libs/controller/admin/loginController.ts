@@ -1,5 +1,6 @@
 import {Request,Response} from 'express'
 import {verifyLogin,createAccessToken} from '../../utils/reuseFunctions'
+import {SessionData} from '../../utils/reuseFunctions/customSession'
 
 
 export default  (dependencies:any)=>{
@@ -14,6 +15,7 @@ export default  (dependencies:any)=>{
             let admin = await executeFunction({email,password})
             let accessToken = createAccessToken(admin.name,admin.email)
             console.log(accessToken,'logincont')
+            req.session.admin = admin
             res.json({message:'success',admin:admin,accessToken:accessToken}) 
         }else{
             throw new Error('Check your credentials')

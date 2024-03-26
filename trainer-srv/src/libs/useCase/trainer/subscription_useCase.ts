@@ -4,6 +4,7 @@ export const subscription_useCase = (dependencies:any) =>{
     const executeFunction = async(data:any)=>{
        try {
         console.log(data,'ee')
+        
         let sub = await trainerRepository.newSubscription(data)
         console.log(sub,'from useCase')
         return sub

@@ -6,6 +6,8 @@ import googleLoginController from "./googleLoginController";
 import otpVerifyController from "./otpVerifyController";
 import trainersListController from "./trainersListController";
 import resendOtpController from "./resendOtpController";
+import getSubscribersListController from "./getSubscribersListController";
+import refreshTokenController from "./refreshTokenController";
 
 export default (dependencies:any)=>{
     return {
@@ -16,7 +18,8 @@ export default (dependencies:any)=>{
         googleLoginController:googleLoginController(dependencies),
         otpVerifyController:otpVerifyController(dependencies),
         trainersListController:trainersListController(dependencies),
-        resendOtpController:resendOtpController(dependencies)
-
+        resendOtpController:resendOtpController(dependencies),
+        getSubscribersListController:getSubscribersListController(dependencies),
+        refreshTokenController:refreshTokenController(dependencies),
     }
 }

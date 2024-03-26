@@ -12,6 +12,8 @@ export default  (dependencies:any)=>{
         if(verified){
             const {executeFunction} = trainerLogin_useCase(dependencies)
             let trainer = await executeFunction({email,password})
+            req.session.trainer = trainer
+            console.log(req.session.trainer,'session')
             let accessToken = createAccessToken(trainer.name,trainer.email)
             console.log(accessToken,'logincont')
             res.json({message:'success',trainer:trainer,accessToken:accessToken}) 

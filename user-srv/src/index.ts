@@ -5,7 +5,7 @@ import { userConsumer } from './events/userConsumer'
 
 const start = async()=>{
     try {
-        // await userConsumer(dependencies)
+        //await userConsumer(dependencies)
         await dbConnect()
         
     } catch (error) {

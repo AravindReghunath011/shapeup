@@ -2,16 +2,9 @@
 import {useState} from 'react'
 import Navbar from '../../components/users/Navbar'
 import {  toast } from 'sonner';
-import axios from 'axios';
-
-// import { useForm } from 'react-hook-form';
-// import Cookies from 'js-cookie';
-
-
-const baseurl= 'http://localhost:8000/api/user'
-
-
+import axios from '../../utils/axios/baseUrl';
 import {Link, useNavigate} from 'react-router-dom'
+import { registerURL } from '@/utils/axios/apiUrls';
 
 const Register = () => {
   const navigate = useNavigate()
@@ -21,7 +14,7 @@ const Register = () => {
 
   const handleregister = ()=>{
     console.log(email,password,'body')
-    axios.post(`${baseurl}/register`, {
+    axios().post(registerURL, {
       email:email,
       password:password,
       name:name

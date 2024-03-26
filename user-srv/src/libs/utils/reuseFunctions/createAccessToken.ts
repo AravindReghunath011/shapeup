@@ -6,7 +6,7 @@ export const createAccessToken = (email:string,name:string,id:string)=>{
             name:name,
             id:id
         }
-        let accessToken = jwt.sign(data,'secret',{expiresIn:'10m'})
+        let accessToken = jwt.sign(data,'secret',{expiresIn:'10s'})
         
         return accessToken
 }

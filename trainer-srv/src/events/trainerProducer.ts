@@ -5,7 +5,7 @@ import {kafka} from "../config/kafkaClient"
 const producer = kafka.producer()
 
 export const trainerProducer = async (sendData:any,topic:string,type:string)=>{
-  
+   
     try{
         if(!sendData){
              

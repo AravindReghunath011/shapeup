@@ -3,14 +3,15 @@ import { Button } from '@/components/ui/button'
 import Sidebar from '@/components/trainer/trainerSideBar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import React, { useEffect, useState } from 'react'
-import { axiosPrivet } from '@/utils/baseUrl'
+import { axiosPrivet } from '@/utils/axios/baseUrl'
 import { useParams } from 'react-router-dom'
+import { getSubscribers } from '@/utils/axios/apiUrls'
 
 const SubscribersList = () => {
     const [subscribers,setSubscribers] = useState([])
     let {trainerId} = useParams()
     useEffect(()=>{
-        axiosPrivet.get(`http://localhost:8001/api/trainer/getsubscribers/${trainerId}`).then(({data}:any)=>{
+        axiosPrivet.get(getSubscribers + `${trainerId}`).then(({data}:any)=>{
             console.log(data,'dataaa')
             setSubscribers(data.subscribers)
         })

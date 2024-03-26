@@ -1,15 +1,16 @@
 import Navbar from '@/components/users/Navbar'
-import axios from '../../utils/baseUrl'
+import axios from '../../utils/axios/baseUrl'
 import { useEffect, useState } from 'react'
 import { DataTable } from '@/components/ui/dataTable'
 import { userColumn } from '@/components/ui/column'
 import Sidebar from '@/components/ui/sidebar'
 import { toast } from 'sonner'
+import { usersListURL } from '@/utils/axios/apiUrls'
 
 const UserList = () => {
   const [user,setUsers] = useState([])
   useEffect(()=>{
-    axios().get('http://localhost:8000/api/user/users').then((response:any)=>{
+    axios().get(usersListURL).then((response:any)=>{
 
 	try {
 		console.log(response.data,'nnnnnnn')
@@ -32,7 +33,7 @@ const UserList = () => {
     
     <div className="flex flex-grow w-full lg:mt-24 ">
         
-        <Sidebar/>
+        <Sidebar select='Users'/>
         
        
 <div className='flex justify-center w-full '>

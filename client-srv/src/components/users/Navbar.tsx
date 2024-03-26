@@ -20,7 +20,7 @@ const Navbar = () => {
         <li className='text-gray-300 hover:text-white hover:cursor-pointer '><Link to={'/'}>HOME </Link></li>
         <li className='text-gray-300 hover:text-white hover:cursor-pointer '><Link to={'/trainer/subscription'}>ABOUT</Link></li>
         <li className='text-gray-300 hover:text-white hover:cursor-pointer '><Link to={'/trainers'}>TRAINERS</Link></li>
-        <li className='text-gray-300 hover:text-white hover:cursor-pointer '>VIDEOS</li>
+        <li className='text-gray-300 hover:text-white hover:cursor-pointer '><Link to={'/video'}>  VIDEOS</Link></li>
       </ul>
       <div className='flex items-center gap-4'>
       <Link  to="/trainer/register" className='font-roboto text-gray-300 hover:text-white'>BECOME A TRAINER</Link>

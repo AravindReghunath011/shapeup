@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import axios from '@/utils/baseUrl';
+import axios from '@/utils/axios/baseUrl';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { adminLoginURL } from '@/utils/axios/apiUrls';
 
 const Login = () => {
   const {
@@ -18,7 +19,7 @@ const Login = () => {
 
     try {
       const response = await axios().post(
-        'http://localhost:8002/api/admin/login',
+        adminLoginURL,
         { email, password },
         { withCredentials: true }
       );

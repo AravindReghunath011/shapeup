@@ -1,10 +1,11 @@
 import { useState } from 'react';
-import axios, { axiosPrivet } from '@/utils/baseUrl';
+import axios, { axiosPrivet } from '@/utils/axios/baseUrl';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { setTrainer } from '@/redux/trainerSlice';
+import { trainerLoginURL } from '@/utils/axios/apiUrls';
 
 const Login = () => {
   const dispatch = useDispatch()
@@ -17,13 +18,7 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  const subscriptionPlan = async(id:string)=>{
-    axiosPrivet.get(`http://localhost:8001/api/trainer/getsubscription/${id}`).then((response)=>{
-      console.log(response.data,'data')
-      setSubPlan(response.data)
-    })
-    return subPlan
-  }
+ 
 
   const onSubmit = async (data) => {
     
@@ -31,7 +26,7 @@ const Login = () => {
 
     try {
       const response = await axiosPrivet.post(
-        'http://localhost:8001/api/trainer/login',
+        trainerLoginURL,
         { email, password }
       );
 
@@ -39,15 +34,11 @@ const Login = () => {
 
       if (response.data.message === 'success') {
         toast.success('Login success');
+        localStorage.setItem('accessToken' , response.data.accessToken);
+
         dispatch(setTrainer(response.data.trainer))
-        let plan = await subscriptionPlan(response.data.trainer._id)
         
-        if(plan?.data?.trainerId){
-          navigate('/trainer')
-        }else{
-          
-          navigate('/trainer/subscriptionplan/create')
-        }
+        navigate('/trainer')
         
       } else {
         toast.error(response.data.message);

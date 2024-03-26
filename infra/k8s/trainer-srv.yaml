@@ -13,17 +13,17 @@ spec:
         app: trainer
     spec:
       containers:
-      - name: trainer
+      - name: trainer-container
         image: shapeup404/trainerservice
 ---
 apiVersion: v1
 kind: Service
-metadata:
+metadata: 
   name: trainer-srv
 spec:
   selector:
     app: trainer
-  ports:
+  ports: 
     - name: trainer
       protocol: TCP
       port: 8001

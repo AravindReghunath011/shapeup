@@ -11,14 +11,13 @@ export default  (dependencies:any)=>{
         const verified = verifyLogin({email,password})
         if(verified){
             const {executeFunction} = userLogin_useCase(dependencies)
-            let {accessToken,userExist} = await executeFunction({email,password})
-            
-            console.log(userExist,'logincont')
+            let {accessToken,userExist,refreshToken} = await executeFunction({email,password})
+            req.session.refreshToken = refreshToken;
+            console.log("This is referesh token ==> " , refreshToken);
             let user = {
                 name:userExist.name,
                 email:userExist.email,
                 id:userExist._id,
-
             }
             res.json({message:'success',accessToken:accessToken,user:user}) 
         }else{
