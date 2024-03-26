@@ -40,7 +40,7 @@ formData.append('trainerId', trainer._id);
     <div className='flex'>
       <Navbar/>
         <Sidebar/>
-        <div className='pl-10 pt-32 w-5/12' >
+        <div className='pl-10 pt-32 w-5/12  ' >
           <h1 className='text-5xl font-bold mb-5'>Video Upload</h1>
          
           <form action="" onSubmit={handleSubmit(onSubmit)} >
